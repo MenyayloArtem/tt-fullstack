@@ -1,0 +1,25 @@
+.modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    * {
+        border: none;
+    }
+
+    &__inner {
+        width: 400px;
+        min-height: 300px;
+        background: #fff;
+        padding: 8px;
+    }
+
+    &__title {
+        text-align: center;
+        font-size: 24px;
+    }
+
+    &__body {
+        margin-top: 15px;
+    }
+}

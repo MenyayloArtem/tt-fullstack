@@ -1,0 +1,18 @@
+.helperText {
+    position: absolute;
+    bottom: -16px;
+}
+
+.createModal {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    &__save-btn {
+        margin-top: 4px !important;
+    }
+
+    .warn {
+        color: red;
+    }
+}
