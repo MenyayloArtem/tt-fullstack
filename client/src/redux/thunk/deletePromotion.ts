@@ -1,17 +1,16 @@
 import { Dispatch } from "redux";
 import Promotion from "../../shared/types/Promotion";
 import Api from "../../api/Api";
-import savePromotion from "../actions/app/promotions/savePromotion";
+import deletePromotion from "../actions/app/promotions/deletePromotion";
 
 export default function (promotion : Promotion) {
     return async (dispatch : Dispatch) => {
-        let res = await Api.patch("promotions", {
-            ...promotion,
-            gift : promotion.gift.id,
+        let res = await Api.delete("promotions", {
+            id : promotion.id
         })
         
         if (res.statusText === "OK") {
-            dispatch(savePromotion(promotion));
+            dispatch(deletePromotion(promotion));
         }
     }
 }

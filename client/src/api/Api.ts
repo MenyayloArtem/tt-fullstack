@@ -17,7 +17,9 @@ export default abstract class Api {
   }
 
   static async delete(url: string, body : any) {
-    let res = await axiosInstance.delete(url, body);
+    let res = await axiosInstance.delete(url, {
+      data : body
+    });
     return res;
   }
 }

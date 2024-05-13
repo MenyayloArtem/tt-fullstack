@@ -23,7 +23,8 @@ import { SearchSharp, CancelRounded } from "@material-ui/icons";
 import selectPromotion from "./redux/actions/app/promotions/selectPromotion";
 import { RootState } from "./redux/store";
 import fetchPromotions from "./redux/thunk/fetchPromotions";
-import deletePromotion from "./redux/actions/app/promotions/deletePromotion";
+import deletePromotion from "./redux/thunk/deletePromotion";
+
 
 function App() {
   const [page, setPage] = useState<number>(0);
@@ -37,7 +38,6 @@ function App() {
 
   const onEdit = useCallback(
     (item: Promotion) => {
-      console.log(item)
       dispatch(selectPromotion(item));
       modal.open("edit");
     },

@@ -1,5 +1,5 @@
 import Gift from "../../shared/types/Gift";
-import Promotion, { RawPromotion } from "../../shared/types/Promotion";
+import Promotion from "../../shared/types/Promotion";
 import { SAVE_PROMOTION } from "../actions/app/promotions/savePromotion";
 import { SET_PROMOTIONS } from "../actions/app/promotions/setPromotions";
 import { SELECT_GIFT } from "../actions/app/gifts/selectGift";

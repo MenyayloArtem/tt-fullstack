@@ -15,7 +15,6 @@ function AddPromotionModal({ open }: Props) {
   const dispatch = useDispatch();
   const modal = useModal();
   const onSave = (item: Promotion) => {
-    console.log(item);
     // @ts-ignore
     dispatch(addPromotion(item));
     modal.close();

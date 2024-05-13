@@ -6,8 +6,9 @@ function wrapString(item: any) {
 }
 
 export default function (table: string, body: Object, id: number) {
+  const ignore = ["id", "date"]
   let values = Object.keys(body)
-    .filter((key) => key !== "id")
+    .filter((key) => !ignore.includes(key))
     .map((key) => `${key}=${wrapString((body as any)[key])}`);
   let sql = `
         UPDATE ${table}
@@ -15,6 +16,5 @@ export default function (table: string, body: Object, id: number) {
         WHERE id = ${id}
     `;
 
-  console.log(sql)
   return sql;
 }

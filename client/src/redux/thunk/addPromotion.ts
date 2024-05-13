@@ -15,6 +15,7 @@ export default function (promotion: Promotion) {
     let res = await Api.post("promotions", temp);
 
     if (res.statusText === "OK") {
+      promotion.id = res.data.id
       dispatch(addPromotion(promotion));
     }
   };

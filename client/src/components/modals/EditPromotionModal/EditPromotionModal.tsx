@@ -4,7 +4,6 @@ import PromotionFormModal from "../templates/PromotionFormModal/PromotionFormMod
 import Promotion from "../../../shared/types/Promotion";
 import { useDispatch, useSelector } from "react-redux";
 import currentPromotionSelector from "../../../redux/selectors/currentPromotionSelector";
-import savePromotion from "../../../redux/actions/app/promotions/savePromotion";
 import useModal from "../../../hooks/useModal";
 import updatePromotion from "../../../redux/thunk/updatePromotion";
 

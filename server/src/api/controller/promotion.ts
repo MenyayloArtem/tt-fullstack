@@ -4,7 +4,6 @@ import Promotion from "../entity/Promotion";
 const router = Router();
 
 router.get("/", async (req, res) => {
-  console.log(req.query);
   res.send(await Promotion.getById(req.query?.id as never));
 });
 
@@ -20,8 +19,9 @@ router.get("/all", async (req, res) => {
 
 router.post("/", async (req, res) => {
   Promotion.create(req.body)
-  .then(result => {
-    res.status(200).send(result)
+  .then(async (result) => {
+    let newItem = await Promotion.getById(result[0].insertId)
+    res.status(200).send(newItem)
   })
   .catch(err => {
     res.status(400).send(err)
@@ -39,6 +39,7 @@ router.patch("/", async (req, res) => {
 });
 
 router.delete("/", async (req, res) => {
+  console.log(req.body)
   Promotion.delete(req.body.id)
   .then(result => {
     res.status(200).send(result)

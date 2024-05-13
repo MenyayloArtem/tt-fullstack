@@ -1,5 +1,5 @@
 export default function sqlInsert(table: string, json: Object) {
-  let keys = Object.keys(json).sort();
+  let keys = Object.keys(json).sort().filter(key => key !== "id");
   let values = keys.map((key: string) => {
     let item = (json as any)[key];
 
@@ -9,8 +9,10 @@ export default function sqlInsert(table: string, json: Object) {
     return item;
   });
 
-  return `INSERT INTO ${table}
-    (${keys.join(",")})
-    VALUES(${values.join(",")});
-    `;
+  let sql = `INSERT INTO ${table}
+  (${keys.join(",")})
+  VALUES(${values.join(",")});
+  `;
+
+  return sql
 }

@@ -89,6 +89,7 @@ function PromotionFormModal({ title, onSave, item, open }: Props) {
     if (item) {
       formik.setValues(item as any, false);
     }
+    // eslint-disable-next-line
   }, [item]);
 
   const clearState = () => {
