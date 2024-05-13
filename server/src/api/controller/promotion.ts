@@ -8,9 +8,9 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/all", async (req, res) => {
-  Promotion.getAll()
-  .then(result => {
-    res.status(200).send(result)
+  Promotion.getAll(req.query)
+  .then(async ({data, count}) => {
+    res.status(200).setHeader("X-Total-Count", count).send(data)
   })
   .catch(err => {
     res.status(400).send(err)

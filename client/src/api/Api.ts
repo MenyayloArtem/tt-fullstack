@@ -1,8 +1,12 @@
 import axiosInstance from "../shared/confing/axiosInstance";
 
 export default abstract class Api {
-  static async get(url: string) {
-    let res = await axiosInstance.get(url);
+  static async get(url: string, query? : Object) {
+    let res = await axiosInstance.get(url, {
+      params : {
+        ...query
+      }
+    });
     return res;
   }
 

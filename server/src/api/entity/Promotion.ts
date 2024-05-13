@@ -16,6 +16,13 @@ export type IPromotion = {
   nums: string;
 };
 
+export interface AvailableQuery {
+  search?: string;
+  page?: number;
+  field?: string;
+  order?: string;
+}
+
 export type RawPromotion = Omit<Promotion, "id" | "gift" | "date"> & {
   gift: number;
 };
@@ -54,16 +61,37 @@ export default class Promotion {
   }
 
   static tableName = "promotions";
+  static itemsPerPage = 5;
 
-  static async getAll() {
-    let res = await db.query<IPromotion>("SELECT * FROM promotions");
+  static async getAll(query: AvailableQuery) {
+    let baseSql = `SELECT * FROM promotions`;
+    let page = query.page || 0;
 
-    return Promise.all(
+    let querySql = ""
+
+    if (query.search) {
+      querySql += ` WHERE name LIKE '%${query.search}%'`;
+    }
+
+    let limit = ` LIMIT ${this.itemsPerPage} OFFSET ${this.itemsPerPage * page}`;
+    console.log(page, querySql);
+    let res = await db.query<IPromotion>(baseSql + querySql + limit);
+
+    let data = await Promise.all(
       res.map(async (item) => {
         item.gift = await Gift.getById(item.gift as unknown as number);
         return item;
       })
     );
+
+    let count = await this.getCount(querySql)
+    return {data, count}
+  }
+
+  static async getCount(query? : string) {
+    let count = await db.query(`SELECT COUNT(*) count  from ${this.tableName} ${query || ''}`);
+    count = count[0].count
+    return count
   }
 
   static async getById(id: number) {
@@ -81,11 +109,10 @@ export default class Promotion {
   static async update(body: RawPromotion & { id: number }) {
     try {
       let sql = sqlUpdate(this.tableName, body, body.id);
-    return db.query(sql);
+      return db.query(sql);
     } catch (error) {
-      throw error
+      throw error;
     }
-    
   }
 
   static async delete(id: number) {

@@ -23,6 +23,9 @@ function GiftItem ({item, onSelect} : Props) {
       <Typography className="giftItem__pos" color="textSecondary">
         {formatDate(item.fireDate)}
       </Typography>
+      <Typography variant='h6' color='textSecondary'>
+        {item.denomination}
+      </Typography>
     </CardContent>
     <CardActions>
       <Button variant='contained' color='primary' size="small" onClick={() => onSelect(item)}>Выбрать</Button>
