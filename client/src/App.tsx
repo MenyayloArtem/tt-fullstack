@@ -22,7 +22,6 @@ import useModal from "./hooks/useModal";
 import { SearchSharp, CancelRounded } from "@material-ui/icons";
 import selectPromotion from "./redux/actions/app/promotions/selectPromotion";
 import { RootState } from "./redux/store";
-import fetchPromotions from "./redux/thunk/fetchPromotions";
 import deletePromotion from "./redux/thunk/deletePromotion";
 import queryPromotions from "./redux/thunk/queryPromotions";
 
@@ -35,7 +34,7 @@ function App() {
   const [search, setSearch] = useState("");
 
   const items = useSelector((state: RootState) => state.app.promotions);
-  const count = useSelector(
+  const loadedCount = useSelector(
     (state: RootState) => state.app.promotionsTotalCount
   );
   const searchedCount = useSelector(
@@ -79,6 +78,7 @@ function App() {
       })
     );
   }, [page, dispatch]);
+
 
   return (
     <div className="App">
@@ -147,7 +147,7 @@ function App() {
             <TableRow>
               {!(search && searchedCount) && (
                 <TablePagination
-                  count={count}
+                  count={loadedCount}
                   rowsPerPage={rowsPerPage}
                   rowsPerPageOptions={[rowsPerPage]}
                   page={page}

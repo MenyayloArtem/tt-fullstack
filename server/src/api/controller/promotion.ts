@@ -19,9 +19,9 @@ router.get("/all", async (req, res) => {
 
 router.post("/", async (req, res) => {
   Promotion.create(req.body)
-  .then(async (result) => {
-    let newItem = await Promotion.getById(result[0].insertId)
-    res.status(200).send(newItem)
+  .then(async ({data, count}) => {
+    let newItem = await Promotion.getById(data[0].insertId)
+    res.status(200).setHeader("X-Total-Count",count).send(newItem)
   })
   .catch(err => {
     res.status(400).send(err)
@@ -39,10 +39,9 @@ router.patch("/", async (req, res) => {
 });
 
 router.delete("/", async (req, res) => {
-  console.log(req.body)
   Promotion.delete(req.body.id)
-  .then(result => {
-    res.status(200).send(result)
+  .then(({data, count}) => {
+    res.status(200).setHeader("X-Total-Count",count).send(data)
   })
   .catch(err => {
     res.status(400).send(err)

@@ -1,7 +1,5 @@
 import { Dispatch } from "redux";
-import Promotion from "../../shared/types/Promotion";
 import Api from "../../api/Api";
-import setPromotions from "../actions/app/promotions/setPromotions";
 import setPromotionsCount from "../actions/app/promotions/setPromotionsCount";
 import addPromotion from "../actions/app/promotions/addPromotion";
 import store, { RootState } from "../store";
@@ -24,7 +22,6 @@ export default function (query: PromotionsQuery) {
     let { app } = storeState as any as RootState;
 
     let needUpdateMain = app.promotionsTotalCount > app.promotions.length
-    let needUpdateSearch = query.search
 
     if (
       needUpdateMain ||

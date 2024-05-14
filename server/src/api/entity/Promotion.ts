@@ -74,7 +74,6 @@ export default class Promotion {
     }
 
     let limit = ` LIMIT ${this.itemsPerPage} OFFSET ${this.itemsPerPage * page}`;
-    console.log(page, querySql);
     let res = await db.query<IPromotion>(baseSql + querySql + limit);
 
     let data = await Promise.all(
@@ -103,7 +102,10 @@ export default class Promotion {
 
   static async create(body: RawPromotion) {
     let sql = sqlInsert(this.tableName, body);
-    return db.query(sql);
+    let data = await db.query(sql);
+    let count = await this.getCount()
+
+    return {data, count}
   }
 
   static async update(body: RawPromotion & { id: number }) {
@@ -116,6 +118,9 @@ export default class Promotion {
   }
 
   static async delete(id: number) {
-    return db.query(`DELETE from ${this.tableName} WHERE id = ${id}`);
+    let data = await db.query(`DELETE from ${this.tableName} WHERE id = ${id}`);
+    let count = await this.getCount()
+
+    return {data, count}
   }
 }
